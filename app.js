@@ -9,6 +9,8 @@ const cookieParser = require('cookie-parser');
 
 const authRouter = require('./routes/authRoutes');
 const userRouter = require('./routes/userRoutes');
+const postRouter = require('./routes/postRoutes');
+
 
 const connectDB = require('./db/connect');
 
@@ -25,8 +27,10 @@ app.use(morgan('tiny'));
 
 
 
-app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/user', userRouter)
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/user', userRouter);
+app.use('/api/v1/post', postRouter);
+
 
 
 app.get('/api/v1',(req,res) => {
