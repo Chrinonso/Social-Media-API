@@ -23,9 +23,15 @@ app.use(cookieParser(process.env.JWT_SECRET));
 app.use(express.json());
 app.use(morgan('tiny'));
 
+const helmet = require('helmet');
+const xss = require('xss-clean');
 
 
+app.set('trust proxy', 5);
 
+app.use(helmet());
+
+app.use(xss());
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/user', userRouter);

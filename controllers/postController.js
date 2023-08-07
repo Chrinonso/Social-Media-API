@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Post = require('../models/Post');
+const User = require('../models/User');
+
 const { StatusCodes } = require('http-status-codes');
 const CustomError  = require('../errors');
 
@@ -98,18 +100,38 @@ const likePost = async (req,res) => {
 
 };
 
+
+
+
 const timelinePosts = async (req,res) => {
-    const currentUserID = req.user.userId;
+    // destructuring the ID of the user;
 
-    const user = await Post.find({_id:currentUserID}).populate('following', 'followers');
-    if(!user) {
-        throw new CustomError.NotFoundError('User not found');
+    const userId = req.user.userId;
+    const currentUser = await User.findOne({_id:userId});
+    const currentUserPosts = await Post.find({user:userId});
+
+    // getting the friendPosts through their followings and mapping through them.
+    // promise.all was used to handle fetching all posts from the users concurrently
+
+    const friendPosts = await Promise.all(
+        currentUser.following.map((friendId) => {
+            return Post.find({user:friendId});
+        })
+    );
+
+    if(!friendPosts) {
+        throw new CustomError.BadRequestError('Your friends have not made any post yet');
     }
-    const friendIds = user.following.map((following) => {following._id})
 
-    const timelinePosts = await Post.find({ user: { $in: friendIds } });
+    const allPosts = currentUserPosts.concat(...friendPosts);
 
-    res.status(StatusCodes.OK).json({ timelinePosts });
+    for (let i = allPosts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [allPosts[i], allPosts[j]] = [allPosts[j], allPosts[i]];
+    }
+
+    // res.status(StatusCodes.OK).json({...friendPosts});
+    res.status(StatusCodes.OK).json(allPosts);
 
 };
 
