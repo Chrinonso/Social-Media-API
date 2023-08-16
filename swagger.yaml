@@ -160,7 +160,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-  /user/unfollow/:
+  /user/unfollow/:{id}:
     put:
       tags:
       - User
@@ -218,6 +218,7 @@ paths:
           type: string
         required: true
         description: The user ID
+  /post/likePost/:{id}:
     put:
       tags:
       - Post
