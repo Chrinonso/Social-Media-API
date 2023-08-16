@@ -13,6 +13,9 @@ const swaggerUI = require('swagger-ui-express');
 const YAML = require('yamljs');
 const specs = YAML.load('./swagger.yaml');
 
+// frontend page
+app.use(express.static('./public'));
+
 
 const authRouter = require('./routes/authRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -71,9 +74,9 @@ app.get('/api/v1',(req,res) => {
 });
 
 
-app.get('/', (req,res) => {
-    res.send('This is my homepage')
-});
+// app.get('/', (req,res) => {
+//     res.send('This is my homepage')
+// });
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
