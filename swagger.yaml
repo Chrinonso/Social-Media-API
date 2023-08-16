@@ -1,0 +1,394 @@
+openapi: 3.0.0
+info:
+  title: Social Media API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://node-socialmedia-api.onrender.com/api/v1
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterUserRequest'
+              - example:
+                  name: chm
+                  email: chm@gmail.com
+                  password: secret
+            example:
+              name: chm
+              email: chm@gmail.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginUserRequest'
+              - example:
+                  email: chm@gmail.com
+                  password: secret
+            example:
+              email: chm@gmail.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/logout:
+    get:
+      tags:
+      - Auth
+      summary: Logout User
+      operationId: LogoutUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /user:
+    get:
+      tags:
+      - User
+      summary: Get All Users
+      operationId: GetAllUsers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /user/updateUser:
+    patch:
+      tags:
+      - User
+      summary: Update User
+      operationId: UpdateUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateUserRequest'
+              - example:
+                  name: nonso
+                  email: chm@gmail.com
+                  profilePicture: secret
+            example:
+              name: hdhjhjd
+              email: chm@gmail.com
+              profilePicture: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /user/updateUserPassword:
+    patch:
+      tags:
+      - User
+      summary: Update User password
+      operationId: UpdateUserpassword
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateUserPasswordRequest'
+              - example:
+                  oldPassword: secret
+                  newPassword: secret
+            example:
+              oldPassword: secret
+              newPassword: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /user/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    put:
+      tags:
+      - User
+      summary: Follow User
+      operationId: FollowUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /user/unfollow/:
+    put:
+      tags:
+      - User
+      summary: Unfollow user
+      operationId: Unfollowuser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /post:
+    post:
+      tags:
+      - Post
+      summary: Create Post
+      operationId: CreatePost
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreatePostRequest'
+              - example:
+                  descr: Hello world 
+                  image: secretjpeg
+            example:
+              descr: Hello world
+              image: secretjpeg
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /post/getAllUserPost:
+    get:
+      tags:
+      - Post
+      summary: Get All User Post
+      operationId: GetAllUserPost
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /post/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    put:
+      tags:
+      - Post
+      summary: Like Post
+      operationId: LikePost
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+      - Post
+      summary: Get Single Post
+      operationId: GetSinglePost
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+      - Post
+      summary: Update Post
+      operationId: UpdatePost
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdatePostRequest'
+              - example:
+                  descr: Hello world 
+                  image: secretjpeg
+            example:
+              descr: Hello world
+              image: secretjpeg
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+      - Post
+      summary: Delete Post
+      operationId: DeletePost
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /post/timelinePosts:
+    get:
+      tags:
+      - Post
+      summary: Timeline Posts
+      operationId: TimelinePosts
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: chm
+        email: chm@gmail.com
+        password: secret
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: chm@gmail.com
+        password: secret
+    UpdateUserRequest:
+      title: UpdateUserRequest
+      required:
+        - name
+        - email
+        - profilePicture
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        profilePicture:
+          type: string
+      example:
+        name: bob
+        email: bob@gmail.com
+        profilepicture: secret
+    UpdateUserPasswordRequest:
+      title: UpdateUserPasswordRequest
+      required:
+        - oldPassword
+        - newPassword
+      type: object
+      properties:
+        oldPassword:
+          type: string
+        newPassword:
+          type: string
+      example:
+        oldPassword: secret
+        newPassword: secret
+    CreatePostRequest:
+      title: CreatePostRequest
+      required:
+        - descr
+        - image
+      type: object
+      properties:
+        descr:
+          type: string
+        image:
+          type: string
+      example:
+        descr: secret
+        image: secret
+    UpdatePostRequest:
+      title: UpdatePostRequest
+      required:
+        - descr
+        - image
+      type: object
+      properties:
+        descr:
+          type: string
+        image:
+          type: string
+      example:
+        descr: secret
+        image: secret
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+- httpBearer: []
+tags:
+- name: Auth
+- name: User
+- name: Post
