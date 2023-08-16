@@ -4,7 +4,7 @@ info:
   contact: {}
   version: '1.0'
 servers:
-- url: https://node-socialmedia-api.onrender.com/api/v1
+- url: https://node-socialmedia-api.onrender.com/api/v1/api/v1
   variables: {}
 paths:
   /auth/register:
@@ -390,5 +390,8 @@ security:
 - httpBearer: []
 tags:
 - name: Auth
+- description: 'Users can register and log in with their credentials.. Authentication, and passwords are properly handled.'
 - name: User
+- description: "Users can petform basic CRUD operations."
 - name: Post
+- description: "Users can perform CRUD operations"
