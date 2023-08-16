@@ -33,7 +33,8 @@ app.use(morgan('tiny'));
 const corsOptions = {
   origin: '*', // You can replace this with the allowed origin(s)
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  optionsSuccessStatus: 204, // Some legacy browsers (IE11, various SmartTVs) choke on 200
+  optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 200
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
