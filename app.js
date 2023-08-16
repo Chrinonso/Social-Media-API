@@ -29,13 +29,23 @@ const errorHandlerMiddleware = require('./middleware/error-handler')
 app.use(cookieParser(process.env.JWT_SECRET));
 app.use(express.json());
 app.use(morgan('tiny'));
-app.use(
-    cors({
-        origin: ["*"],
-        optionsSuccessStatus: 200,
-        credentials: true,
-    }),
-);
+
+const corsOptions = {
+  origin: '*', // You can replace this with the allowed origin(s)
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  optionsSuccessStatus: 204, // Some legacy browsers (IE11, various SmartTVs) choke on 200
+};
+
+app.use(cors(corsOptions));
+
+
+// app.use(
+//     cors({
+//         origin: ["*"],
+//         optionsSuccessStatus: 200,
+//         credentials: true,
+//     }),
+// );
 
 const helmet = require('helmet');
 const xss = require('xss-clean');
